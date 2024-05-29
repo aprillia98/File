@@ -1,0 +1,6 @@
+1.Open Blender and go to the "Edit" menu.
+2.Select "Preferences" and then click on the "Add-ons" tab.
+3.Click the "Install" button at the top of the window.
+4.Navigate to the location of the addon file Youtube++.py and select it.
+5.Click "Install Add-on" to complete the installation process.
+6.The addon should now appear in the list of available addons. Check the box next to the addon's name to enable it.
