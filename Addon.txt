@@ -1,6 +1,43 @@
-1.Open Blender and go to the "Edit" menu.
-2.Select "Preferences" and then click on the "Add-ons" tab.
-3.Click the "Install" button at the top of the window.
-4.Navigate to the location of the addon file Molecular + and select it.
-5.Click "Install Add-on" to complete the installation process.
-6.The addon should now appear in the list of available addons. Check the box next to the addon's name to enable it.
+import bpy
+
+class FollowPathConstraintPanel(bpy.types.Panel):
+    bl_label = "Follow Path Constraint"
+    bl_idname = "OBJECT_PT_follow_path_constraint"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_category = 'Edit Constraint'
+
+    def draw(self, context):
+        layout = self.layout
+        obj = context.active_object
+
+        if obj is not None and obj.constraints:
+            for con in obj.constraints:
+                if con.type == 'FOLLOW_PATH':
+                    box = layout.box()
+                    row = box.row()
+                    row.label(text=con.name)
+
+                    row = box.row()
+                    row.prop(con, "target")
+
+                    row = box.row()
+                    row.prop(con, "offset")
+
+                    row = box.row()
+                    row.prop(con, "forward_axis", text="Forward")
+                    row.prop(con, "up_axis", text="Up")
+
+                    row = box.row()
+                    row.prop(con, "use_fixed_location")
+                    if con.use_fixed_location:
+                        row.prop(con, "offset_location", text="")
+
+def register():
+    bpy.utils.register_class(FollowPathConstraintPanel)
+
+def unregister():
+    bpy.utils.unregister_class(FollowPathConstraintPanel)
+
+if __name__ == "__main__":
+    register()
